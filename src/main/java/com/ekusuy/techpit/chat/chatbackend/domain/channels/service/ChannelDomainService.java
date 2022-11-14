@@ -13,17 +13,19 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ChannelDomainService {
+    private final ChannelRepository channelRepository;
 
     public Channel create(Channel channel){
-        Optional<Integer> currentMaxId = Optional.of(1);
-
+        var currentMaxId = channelRepository.getMaxId();
         var newid = currentMaxId.orElse(0) + 1;
         channel.setId(newid);
+
+        channelRepository.insert(channel);
 
         return channel;
     }
 
     public List<Channel> findAll(){
-        return Collections.emptyList();
+        return channelRepository.findAll();
     }
 }
