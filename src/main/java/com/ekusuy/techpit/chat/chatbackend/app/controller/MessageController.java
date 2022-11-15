@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/channels/{channelId}/messages")
 @RequiredArgsConstructor
-@CrossOrigin
 public class MessageController {
 
     private final MessageService messageService;
