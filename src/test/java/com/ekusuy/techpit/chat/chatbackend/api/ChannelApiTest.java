@@ -179,6 +179,36 @@ public class ChannelApiTest {
             "success"
         )
     );
+  }
 
+  @ParameterizedTest
+  @MethodSource("deleteTestProvider")
+  public void deleteTest(int channelId, String dbPath) throws Exception {
+    IDatabaseTester databaseTester = new DataSourceDatabaseTester(dataSource);
+    var givenUrl = this.getClass().getResource("/channels/delete/" + dbPath + "/given/");
+    databaseTester.setDataSet(new CsvURLDataSet(givenUrl));
+    databaseTester.onSetup();
+
+    mockMvc.perform(
+        // deleteメソッドを利用
+        MockMvcRequestBuilders.delete("/channels/" + channelId))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+
+    String[] tables = {"channels", "messages"};
+
+    var actualDataSet = databaseTester.getConnection().createDataSet();
+
+    var expectedUri = this.getClass().getResource("/channels/delete/" + dbPath + "/expected/");
+    var expectedDataSet = new CsvURLDataSet(expectedUri);
+
+    for (String table : tables) {
+      var actualTable = actualDataSet.getTable(table);
+      var expectedTable = expectedDataSet.getTable(table);
+      Assertion.assertEquals(expectedTable, actualTable);
+    }
+  }
+
+  private static Stream<Arguments> deleteTestProvider() {
+    return Stream.of(Arguments.arguments(1, "success"));
   }
  }
