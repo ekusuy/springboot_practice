@@ -24,4 +24,8 @@ public class ChannelService {
     public List<Channel> findAll(){
         return channelDomainService.findAll();
     }
+
+    public Channel update(Channel channel) {
+        return channelDomainService.update(channel);
+    }
 }
