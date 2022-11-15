@@ -1,6 +1,5 @@
 package com.ekusuy.techpit.chat.chatbackend.app.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
