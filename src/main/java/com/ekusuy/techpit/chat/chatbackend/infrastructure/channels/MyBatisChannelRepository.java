@@ -20,18 +20,23 @@ public class MyBatisChannelRepository implements ChannelRepository {
         channelMapper.insert(channel);
     }
 
-  @Override
-  public List<Channel> findAll() {
-    return channelMapper.findAll();
-  }
+    @Override
+    public List<Channel> findAll() {
+        return channelMapper.findAll();
+    }
 
-  @Override
-  public Optional<Integer> getMaxId() {
-    return channelMapper.getMaxId();
-  }
+    @Override
+    public Optional<Integer> getMaxId() {
+        return channelMapper.getMaxId();
+    }
 
-  @Override
-  public int update(Channel channel) {
-    return channelMapper.update(channel);
-  }
+    @Override
+    public int update(Channel channel) {
+        return channelMapper.update(channel);
+    }
+
+    @Override
+    public int delete(int id) {
+        return channelMapper.delete(id);
+    }
 }
